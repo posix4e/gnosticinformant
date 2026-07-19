@@ -1,0 +1,400 @@
+/* ————————————————————————————————————————————————
+   Gnostic Informant — gnosticinformant.com
+   Antiquarian folio: dusk, marble, gilt.
+   Palette drawn from Thomas Cole's "Desolation" (1836)
+   and the channel's Abraxas medallion.
+   ———————————————————————————————————————————————— */
+
+:root {
+  --night: #171b21;
+  --vitrine: #1f2630;
+  --marble: #eae4d6;
+  --stone: #a79f8f;
+  --gilt: #c99a45;
+  --gilt-bright: #e0b45e;
+  --moon: #aeb6c2;
+  --line: rgba(234, 228, 214, 0.14);
+  --display: "Cormorant SC", "Cormorant Garamond", Georgia, serif;
+  --deck: "Cormorant Garamond", Georgia, serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--night);
+  color: var(--marble);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--gilt-bright); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+:focus-visible {
+  outline: 2px solid var(--gilt-bright);
+  outline-offset: 3px;
+}
+
+::selection { background: var(--gilt); color: var(--night); }
+
+/* ——— top bar ——— */
+
+.bar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
+}
+
+.bar-name {
+  font-family: var(--display);
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  color: var(--marble);
+}
+.bar-name:hover { text-decoration: none; color: var(--gilt-bright); }
+
+.bar-nav { display: flex; gap: clamp(1rem, 3vw, 2.2rem); }
+
+.bar-nav a {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+.bar-nav a:hover { color: var(--gilt-bright); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .bar-nav a:not(:last-child) { display: none; }
+}
+
+/* ——— hero frontispiece ——— */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 6rem 1.5rem 5rem;
+}
+
+.hero-painting {
+  position: absolute;
+  inset: 0;
+  background: url("assets/desolation.jpg") center 30% / cover no-repeat;
+}
+
+.hero-painting::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center 40%, rgba(23, 27, 33, 0.18) 0%, rgba(23, 27, 33, 0.62) 78%),
+    linear-gradient(to bottom, rgba(23, 27, 33, 0.55) 0%, rgba(23, 27, 33, 0.18) 26%, rgba(23, 27, 33, 0.34) 62%, var(--night) 96%);
+}
+
+.hero-inner { position: relative; z-index: 1; max-width: 46rem; }
+
+.medallion {
+  position: relative;
+  width: clamp(120px, 18vw, 164px);
+  aspect-ratio: 1;
+  margin: 0 auto 2rem;
+}
+
+.medallion img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 154, 69, 0.55);
+  box-shadow:
+    0 0 0 6px rgba(23, 27, 33, 0.55),
+    0 0 60px rgba(201, 154, 69, 0.18),
+    0 18px 50px rgba(0, 0, 0, 0.55);
+}
+
+/* engraved sunburst behind the medallion */
+.medallion::before {
+  content: "";
+  position: absolute;
+  inset: -46%;
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(
+      rgba(201, 154, 69, 0.28) 0deg 0.7deg,
+      transparent 0.7deg 10deg
+    );
+  -webkit-mask: radial-gradient(circle, transparent 54%, #000 55%, transparent 76%);
+  mask: radial-gradient(circle, transparent 54%, #000 55%, transparent 76%);
+  animation: revolve 140s linear infinite;
+}
+
+@keyframes revolve { to { transform: rotate(360deg); } }
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 7vw, 4.15rem);
+  letter-spacing: 0.16em;
+  line-height: 1.12;
+  text-wrap: balance;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.6);
+}
+
+.hero-epigraph {
+  font-family: var(--deck);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.6vw, 1.45rem);
+  color: var(--moon);
+  margin: 1.1rem auto 0;
+  max-width: 34em;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.7);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.4rem;
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.6rem;
+  border: 1px solid var(--gilt);
+  color: var(--gilt-bright);
+  background: rgba(23, 27, 33, 0.35);
+  backdrop-filter: blur(2px);
+  transition: background 0.25s, color 0.25s;
+}
+
+.btn:hover { text-decoration: none; background: rgba(201, 154, 69, 0.14); }
+
+.btn-solid { background: var(--gilt); color: #14161a; }
+.btn-solid:hover { background: var(--gilt-bright); color: #14161a; }
+
+.hero-credit {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.4rem;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: rgba(174, 182, 194, 0.5);
+}
+
+/* ——— plates (sections) ——— */
+
+.plate {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 5vw, 3rem) 0;
+}
+
+.plate-head { margin-bottom: 2.6rem; }
+
+.plate-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gilt);
+}
+
+.plate h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 4.4vw, 2.6rem);
+  letter-spacing: 0.09em;
+  margin-top: 0.5rem;
+}
+
+/* engraved divider: hairline with a gilt lozenge */
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.2rem;
+}
+.rule::before, .rule::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--line);
+}
+.rule span {
+  width: 7px;
+  height: 7px;
+  background: var(--gilt);
+  transform: rotate(45deg);
+  flex: none;
+}
+.rule::after { flex: 8; }
+
+.prose { max-width: 42rem; color: var(--marble); }
+.prose p + p { margin-top: 1.2em; }
+.prose .aside { color: var(--stone); font-size: 0.97em; }
+
+/* ——— the archive (videos) ——— */
+
+.archive-frame {
+  border: 1px solid var(--line);
+  background: var(--vitrine);
+  padding: clamp(0.6rem, 2vw, 1.2rem);
+}
+
+.archive-frame .ratio {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+.archive-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.archive-note {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-top: 0.9rem;
+  text-align: center;
+}
+
+/* ——— the network (links) ——— */
+
+.network {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.network a {
+  background: var(--night);
+  padding: 1.5rem 1.4rem;
+  display: block;
+  transition: background 0.25s;
+}
+
+.network a:hover { text-decoration: none; background: var(--vitrine); }
+
+.network a:last-child { grid-column: 1 / -1; }
+
+.network .net-name {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.18rem;
+  letter-spacing: 0.1em;
+  color: var(--marble);
+}
+
+.network a:hover .net-name { color: var(--gilt-bright); }
+
+.network .net-handle {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--stone);
+  margin-top: 0.35rem;
+}
+
+/* ——— patronage ——— */
+
+.patronage {
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse at top, rgba(201, 154, 69, 0.07), transparent 60%),
+    var(--vitrine);
+  padding: clamp(2.2rem, 6vw, 3.6rem);
+  text-align: center;
+}
+
+.patronage p {
+  max-width: 36em;
+  margin: 0 auto 1.8rem;
+  color: var(--marble);
+}
+
+/* ——— footer ——— */
+
+footer {
+  margin-top: clamp(4rem, 9vw, 7rem);
+  border-top: 1px solid var(--line);
+  padding: 2.2rem clamp(1.25rem, 5vw, 3rem) 2.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 2rem;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--stone);
+}
+
+footer a { color: var(--stone); }
+footer a:hover { color: var(--gilt-bright); }
+
+footer .beacon {
+  width: 100%;
+  text-align: center;
+  font-family: var(--deck);
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: var(--marble);
+  margin-bottom: 1.6rem;
+}
+
+/* ——— motion ——— */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+.hero .rise {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: rise 0.9s ease forwards;
+}
+.hero .rise-2 { animation-delay: 0.15s; }
+.hero .rise-3 { animation-delay: 0.3s; }
+.hero .rise-4 { animation-delay: 0.45s; }
+
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .medallion::before { animation: none; }
+  .hero .rise { animation: none; opacity: 1; transform: none; }
+  .reveal { transition: none; opacity: 1; transform: none; }
+}
